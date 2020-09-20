@@ -15,7 +15,19 @@ It is highly efficient and gets the job done decently
 
 ## Screenshots
 
-`Fill in`
+### Welcome View
+![Welcome banner](screenshots/Welcome%20banner.png)
+
+___
+
+### Input View
+![Input view 1](screenshots/Input%20view%201.png)
+
+![Input view 2](screenshots/Input%20view%202.png)
+
+![Input view 3](screenshots/Input%20view%203.png)
+
+**Much more like this are coming**
 
 ## Folder Structure
 
