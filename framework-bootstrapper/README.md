@@ -1,6 +1,8 @@
-# Framework Bootstrapper CLI (Command Line Interface)
+# Framework Jumpstarter CLI (Command Line Interface)
 
-![Framework Bootstrapper CLI](https://github.com/LokotamaTheMastermind/python-command-line-clients/workflows/Framework%20Bootstrapper%20CLI/badge.svg?branch=master)
+[![Framework Bootstrapper CLI](https://github.com/LokotamaTheMastermind/python-command-line-clients/workflows/Framework%20Bootstrapper%20CLI/badge.svg?branch=master)](
+https://github.com/LokotamaTheMastermind/python-command-line-clients.git)
+
 
 This is a cli built with python for bootstrapping projects that use frameworks
 It is highly efficient and gets the job done decently
@@ -32,10 +34,15 @@ ___
 ## Folder Structure
 
 ```
-.vscode           -> VSCode editor configurations
-__init__.py       -> Python package identifier
-bootstrapper.py   -> Code heart
-install.py        -> Installation script for the project
++ .vscode           -> VSCode editor configurations
++ __init__.py       -> Python package identifier
++
++ functions
++-----jumpstarter   -> Contains functions for jumpstarting
++                      projects
++
++ bootstrapper.py   -> Entry point
++ install.py        -> Installation script for the project
 ```
 
 ## Contributing
@@ -57,7 +64,9 @@ If you wanna `contribute` follow the steps below
 3. More `framework` and `programming languages` presets
 4. Better UI/UX look
 5. Compilation to standalone executables for `Mac` and `Linux`
+6. Cross platform
+7. Testing with `pytest`
 
 ## Notice
 
-I commands ran from the script are `OS-friendly` and are currently working and maybe updated when there's a new release.
+I tested the commands ran from the script are `OS-friendly` and are currently working and maybe updated when there's a new release.
