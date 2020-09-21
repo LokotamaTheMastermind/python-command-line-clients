@@ -52,7 +52,7 @@ if framework != "" and project_name != "" and project_location != "":
             f"\n{colored.blue(f'You are using preset of {framework} to start project')}\n")
         if framework == "django":
             # Initiate django template jumpstart
-            django_jumpstart(framework, project_location,
+            oython_jumpstart(framework, project_location,
                              project_name, is_in_a_sub_folder)
         elif framework == ".net":
             # Initiate dotnet template jumpstart
