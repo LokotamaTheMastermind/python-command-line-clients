@@ -50,9 +50,26 @@ puts("")
 questions = [
     {
         # Framework Jumpstarter
-        'type': 'input',
+        'type': 'list',
         'name': 'framework',
-        'message': '* Enter the framework to jumpstart |',
+        'message': '* Choose the framework to jumpstart |',
+        'choices': [
+            {
+                'name': '.net'
+            },
+            {
+                'name': 'django'
+            },
+            {
+                'name': 'flask'
+            },
+            {
+                'name': 'javascript'
+            },
+            {
+                'name': 'php'
+            },
+        ],
     },
     {
         # Project name
@@ -141,7 +158,8 @@ if framework != "" and project_name != "" and project_location != "":
             django_jumpstart(framework, project_location, project_name)
         elif framework == ".net":
             # Initiate dotnet template jumpstart
-            dot_net_jumpstart(framework, is_in_a_sub_folder, project_location)
+            dot_net_jumpstart(framework, is_in_a_sub_folder,
+                              project_location, project_name, git_repo)
 
     elif location_of_preset == None:
         puts(
