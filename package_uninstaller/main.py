@@ -222,6 +222,7 @@ def action(package_manager, global_package, containerized_package):
                         exit()
                     elif correct_folder:
                         print("")
+                        # TODO: fix this to work on different drives
                         os.system(
                             'cd "{}" && yarn list'.format(folder_path))
 
@@ -254,6 +255,14 @@ def action(package_manager, global_package, containerized_package):
                             puts(
                                 f'\n{colored.green("Thank God you decided not to uninstall the package {}!".format(package_name))}')
                             quit()
+
+        elif package_manager == "composer":
+
+            # Continue here
+            if global_package and not containerized_package:
+                pass
+            elif not global_package and containerized_package:
+                pass
 
 
 if __name__ == "__main__":
