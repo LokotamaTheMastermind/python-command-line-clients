@@ -1,13 +1,12 @@
 """ Installation of the CLI """
 
 """ Important Modules """
-import platform
-import os
 
 """ Dynamic operating system """
+import platform
+import os
 op = platform.system()
 
-if op == "Windows":
-    # os.system('cd %homepath% && mkdir bin && cd bin && mkdir lokotamathemastermind && cd lokotamathemastermind && mkdir framework_bootstrapper && copy "%homepath%/Downloads/framework_bootstrapper/bootstrapper.py" "%homepath%/bin/framework_bootstrapper"')
-    os.environ.setdefault('FRAMEWORK_BOOTSTRAPPER', '%homepath%/bin/lokotamathemastermind/framework_bootstrapper/bootstrapper.py')
-    os.system('doskey framework-bootstrapper = python %FRAMEWORK_BOOTSTRAPPER%')
+os.environ.setdefault('FRAMEWORK_BOOTSTRAPPER',
+                      '%homepath%/bin/lokotamathemastermind/framework_bootstrapper/entry.py')
+os.system('doskey jumpstarter = python %FRAMEWORK_BOOTSTRAPPER%')
