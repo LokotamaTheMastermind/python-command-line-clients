@@ -7,7 +7,7 @@ def welcome_banner():
     from pyfiglet import Figlet
 
     """ Massive banner """
-    figlet = Figlet(font='slant')
+    figlet = Figlet(font='cursive')
     header = 'Framework Jumpstarter'
     puts(colored.green(figlet.renderText(header)))
 
@@ -19,11 +19,11 @@ def welcome_banner():
 
         # More Information
         second_line = colored.yellow(
-            "List of available commands are coming soon!")
+            "List of available commands are coming soon!", bold=True)
 
         # Quick tip
         third_line = colored.cyan(
-            "Quick tip: all fields marked * are important and leaving them will result in an error or wrongly jumpstarted projects!")
+            f"Quick tip: all fields marked * are important and leaving them will result in an error or wrongly jumpstarted projects!")
 
         information = """ {} \n {} \n {} """.format(
             first_line, second_line, third_line)

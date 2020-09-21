@@ -12,10 +12,7 @@ questions = [
                 'name': '.net'
             },
             {
-                'name': 'django'
-            },
-            {
-                'name': 'flask'
+                'name': 'python'
             },
             {
                 'name': 'javascript'
@@ -81,4 +78,5 @@ framework_presets = [
     'angularjs',
     'backbonejs',
     'aureliajs'
+    'python',
 ]
