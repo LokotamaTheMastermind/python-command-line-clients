@@ -3,10 +3,11 @@ from pyfiglet import Figlet
 from PyInquirer import prompt
 from extra import welcome_banner
 from extra.global_vars import questions
+from package_managers import *
 
 
 # Entry point in function
-def main():
+def entry():
     welcome_banner()  # Welcome banner display
     print("")
     answers = prompt(questions)  # Questions
@@ -21,252 +22,71 @@ def main():
         is_global = answers['global_packages']
         is_local = False
     # Calls action() function with param of `package_manager`
-    action(package_manager, is_global, is_local)
+    main_action(package_manager, is_global, is_local)
 
 
-def action(package_manager, global_package, containerized_package):
+def validate(folder_path):
+    pass
+
+
+def main_action(package_manager, global_package, containerized_package):
 
     import os
     import platform
     import click
+    import re
 
     op = platform.system()  # Operating system
 
     if op == "Windows":
 
         if package_manager == "pip":
-
-            if global_package and not containerized_package:
-
-                puts(colored.white(
-                    "The list of available globally packages to uninstall are"))
-                print("")
-                os.system('cd extra/files/pip && pip list > packages.txt')
-
-                file = open('extra/files/pip/packages.txt',
-                            'r', encoding='utf-8')
-
-                content = file.readlines()
-
-                for line in content:
-                    click.echo_via_pager(line.strip())
-
-                extra_questions = [
-                    {
-                        'name': 'package_name',
-                        'type': 'input',
-                        'message': 'Enter package name for uninstallation |',
-                        'default': 'foo'
-                    },
-                    {
-                        'name': 'confirmation',
-                        'type': 'confirm',
-                        'message': 'Are you sure you wanna delete this package?',
-                        'default': False,
-                    }
-                ]
-
-                answers = prompt(extra_questions)
-
-                package_name = answers['package_name']
-                confirmation = answers['confirmation']
-
-                if confirmation:
-                    print("")
-                    os.system('pip uninstall {} -y'.format(package_name))
-                    puts(
-                        f'\n{colored.yellow("Uninstalled package {}".format(package_name))}')
-                    quit()
-                elif not confirmation:
-                    puts(
-                        f'\n{colored.green("Thank God you decided not to uninstall the package {}!".format(package_name))}')
-                    quit()
-
-            elif not global_package and containerized_package:
-
-                puts('\nUsing virtualenv package for python virtual environments\n')
-
-                more_question = [
-                    {
-                        'name': 'folder_location',
-                        'type': 'input',
-                        'message': 'Enter full path of folder containing virtualenv |'
-                    },
-                    {
-                        'name': 'virtualenv_name',
-                        'type': 'input',
-                        'message': 'Enter name of virtualenv |',
-                    }
-                ]
-
-                answer = prompt(more_question)
-                folder_path = answer['folder_location']
-                virtualenv_name = answer['virtualenv_name']
-
-                if not folder_path == "":
-                    virtualenv = f'{folder_path}/{virtualenv_name}/'
-                    virtualenv.replace('/', '\\')
-                    activated = os.system(
-                        '"{}\\Scripts\\activate"'.format(virtualenv))
-
-                    if activated == 1:
-                        puts(colored.red(
-                            'Sorry an error occurred with virtualenv activation'))
-                        exit()
-                    elif activated == 0:
-                        print("")
-                        activated = os.system(
-                            '"{}\\Scripts\\activate" && pip list'.format(virtualenv))
-
-                        extra_questions = [
-                            {
-                                'name': 'package_name',
-                                'type': 'input',
-                                'message': 'Enter package name for uninstallation |',
-                                'default': 'foo'
-                            },
-                            {
-                                'name': 'confirmation',
-                                'type': 'confirm',
-                                'message': 'Are you sure you wanna delete this package?',
-                                'default': False,
-                            }
-                        ]
-
-                        answers = prompt(extra_questions)
-                        package_name = answers['package_name']
-                        confirmation = answers['confirmation']
-
-                        if confirmation:
-                            activated = os.system(
-                                '"{}\\Scripts\\activate" && pip uninstall {} -y'.format(virtualenv, package_name))
-                            puts(
-                                f'\n{colored.yellow("Uninstalled package {}".format(package_name))}')
-                            quit()
-                        elif not confirmation:
-                            puts(
-                                f'\n{colored.green("Thank God you decided not to uninstall the package {}!".format(package_name))}')
-                            quit()
+            windows_pip(global_package, containerized_package)
 
         elif package_manager == "yarn":
-
-            if global_package and not containerized_package:
-                puts(colored.white(
-                    "The list of available globally packages to uninstall are"))
-                print("")
-                os.system(
-                    'cd extra/files/yarn && yarn global list > packages.txt')
-
-                file = open('extra/files/yarn/packages.txt',
-                            'r', encoding='utf-8')
-
-                content = file.readlines()
-
-                for line in content:
-                    click.echo_via_pager(line.strip())
-
-                extra_questions = [
-                    {
-                        'name': 'package_name',
-                        'type': 'input',
-                        'message': 'Enter package name for uninstallation |',
-                        'default': 'foo'
-                    },
-                    {
-                        'name': 'confirmation',
-                        'type': 'confirm',
-                        'message': 'Are you sure you wanna delete this package?',
-                        'default': False,
-                    }
-                ]
-
-                answers = prompt(extra_questions)
-
-                package_name = answers['package_name']
-                confirmation = answers['confirmation']
-
-                if confirmation:
-                    print("")
-                    os.system('yarn global remove {}'.format(package_name))
-                    puts(
-                        f'\n{colored.yellow("Uninstalled package {}".format(package_name))}')
-                    quit()
-                elif not confirmation:
-                    puts(
-                        f'\n{colored.green("Thank God you decided not to uninstall the package {}!".format(package_name))}')
-                    quit()
-
-            elif containerized_package and not global_package:
-                puts('\nUsing normal yarn package environments\n')
-
-                more_question = [
-                    {
-                        'name': 'folder_location',
-                        'type': 'input',
-                        'message': 'Enter full path of folder containing project using yarn |'
-                    }
-                ]
-
-                answer = prompt(more_question)
-                folder_path = answer['folder_location']
-
-                if folder_path != "":
-
-                    correct_folder = os.path.exists(
-                        f'{folder_path}/yarn.lock')
-
-                    if not correct_folder:
-                        print("")
-                        puts(colored.red(
-                            'Sorry an error occurred with verifying if folder is an actual yarn project'))
-                        exit()
-                    elif correct_folder:
-                        print("")
-                        # TODO: fix this to work on different drives
-                        os.system(
-                            'cd "{}" && yarn list'.format(folder_path))
-
-                        extra_questions = [
-                            {
-                                'name': 'package_name',
-                                'type': 'input',
-                                'message': 'Enter package name for uninstallation |',
-                                'default': 'foo'
-                            },
-                            {
-                                'name': 'confirmation',
-                                'type': 'confirm',
-                                'message': 'Are you sure you wanna delete this package?',
-                                'default': False,
-                            }
-                        ]
-
-                        answers = prompt(extra_questions)
-                        package_name = answers['package_name']
-                        confirmation = answers['confirmation']
-
-                        if confirmation:
-                            activated = os.system(
-                                'cd "{}" && yarn remove {}'.format(folder_path, package_name))
-                            puts(
-                                f'\n{colored.yellow("Uninstalled package {}".format(package_name))}')
-                            quit()
-                        elif not confirmation:
-                            puts(
-                                f'\n{colored.green("Thank God you decided not to uninstall the package {}!".format(package_name))}')
-                            quit()
+            windows_yarn(global_package, containerized_package)
 
         elif package_manager == "composer":
 
-            # Continue here
+            # Continue here tomorrow --> after tomorrow
             if global_package and not containerized_package:
                 pass
             elif not global_package and containerized_package:
                 pass
 
+        elif package_manager == "chocolatey":
+            pass
+
+        elif package_manager == "npm":
+            pass
+
+    elif op == "Darwin":
+
+        if package_manager == "pip":
+            pass
+
+        elif package_manager == "yarn":
+            pass
+
+        elif package_manager == "composer":
+
+            pass
+
+            # Continue here tomorrow --> after tomorrow
+            if global_package and not containerized_package:
+                pass
+            elif not global_package and containerized_package:
+                pass
+
+        elif package_manager == "npm":
+            pass
+
+        elif package_manager == "homebrew":
+            pass
+
 
 if __name__ == "__main__":
-    main()
+    entry()
 
 
 """

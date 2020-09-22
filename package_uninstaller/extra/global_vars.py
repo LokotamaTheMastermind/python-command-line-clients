@@ -23,6 +23,15 @@ questions = [
             },
             {
                 'name': 'Yarn'
+            },
+            {
+                'name': 'NuGet'
+            },
+            {
+                'name': 'Homebrew'
+            },
+            {
+                'name': 'APT'
             }
         ]
     },

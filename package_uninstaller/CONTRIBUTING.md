@@ -1,0 +1,5 @@
+# Package Uninstaller
+
+## Contributing
+
+### Guidelines
