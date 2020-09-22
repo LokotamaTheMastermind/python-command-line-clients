@@ -28,4 +28,4 @@ jobs:
       shell: python
       run: |
         import os
-        os.system("cd framework_jumpstarter && py entry.py")
+        os.system("cd framework_jumpstarter && python3 entry.py")
