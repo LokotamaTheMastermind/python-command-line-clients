@@ -28,8 +28,10 @@ jobs:
       shell: python
       run: |
         import os
-        works = os.system("cd framework_jumpstarter && python3 entry.py")
-        if works:
-          return True
-        else:
-          return False
+        def validate():
+          works = os.system("cd framework_jumpstarter && python3 entry.py")
+          if works:
+            return True
+          else:
+            return False
+        validate()
